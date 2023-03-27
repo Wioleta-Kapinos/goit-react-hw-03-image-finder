@@ -12,7 +12,6 @@ export class ImageGallery extends Component {
                     return (
                         <ImageGalleryItem
                         key={id}
-                        id={id}
                         webformatURL={webformatURL}
                         largeImageURL={largeImageURL}
                         openModal={openModal}

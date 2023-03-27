@@ -26,7 +26,7 @@ export class Searchbar extends Component {
     render() {
         return (
             <header className={css.searchbar}>
-                <h1>Image Finder &#128269;</h1>
+                <h1>Image Finder</h1>
                 <form onSubmit={this.handleSubmit} className={css.form}>
                     <input
                         value={this.state.value}
@@ -35,10 +35,10 @@ export class Searchbar extends Component {
                         type="text"
                         autoComplete="off"
                         autoFocus
-                        placeholder="Search images and photos"
+                        placeholder="Search images..."
                     />
                     <button type="submit" className={css.buttonForm}>
-                        <span className={css.labelSearch}>Search</span>
+                        <span className={css.labelSearch}>&#128269;</span>
                     </button>
                 </form>
             </header>

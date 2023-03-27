@@ -4,15 +4,16 @@
     position: sticky;
     z-index: 1100;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 64px;
     padding-right: 24px;
     padding-left: 24px;
     padding-top: 12px;
-    padding-bottom: 12px;
-    color: #fff;
-    background-color: #3f51b5;
+    padding-bottom: 25px;
+    color: #000000;
+    background-color: rgb(114, 229, 114);
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
@@ -21,10 +22,12 @@
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 5px;
     overflow: hidden;
+    border: 2px solid black;
+    box-shadow: 5px 5px 5px -2px black;
 }
 
 .inputForm {
@@ -41,4 +44,28 @@
 .inputForm::placeholder {
     font: inherit;
     font-size: 18px;
+}
+
+.buttonForm {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    outline: none;
+    background-color:  rgb(200, 225, 241);
+}
+
+.buttonForm:hover {
+    opacity: 1;
+    background-color: rgb(115, 189, 236);
+}
+
+.labelSearch {
+    font-size: 1.5rem;
 }

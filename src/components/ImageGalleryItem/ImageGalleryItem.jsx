@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 export class ImageGalleryItem extends Component {
     render(){
-        const { openModal, tags, webformatURL, largeImageURL} = this.props;
+        const { openModal, tags, webformatURL, largeImageURL } = this.props;
             return (
                 <li className={css.galleryItem}>
                     <img

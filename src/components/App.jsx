@@ -1,5 +1,5 @@
 import { Component } from "react";
-import api from "utils/api";
+import axios from "axios";
 import { Loader } from "./Loader/Loader";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
@@ -15,33 +15,47 @@ export class App extends Component {
     modal: false,
     isLoading: false,
     largeImageURL: "",
-    error: "",
-  }
+    error: false,
+    API: "32928385-c573e9cc533413973b7398451",
+  } 
 
-  searchImages = async query => {
-    this.setState({ isLoading: true });
+  async searchImages() {
+    const { API, query, page, } = this.state;
+    this.setState({ query, isLoading: true, });
     try {
-      const response = await api(query);
-        if (response.data.totalHits === 0) {
-          this.setState({ 
-            images: [],
+      const URL = `https://pixabay.com/api/?key=${API}&q=${query}&page=${page}&image_type=photo&orientation=horizontal&per_page=12`;
+      const response = await axios.get(URL);
+        if (response.data.hits.length > 0) {
+          this.setState({
+            images: [...this.state.images, ...response.data.hits],
             isLoading: false,
           });
-          alert("Sorry, there are no images matching your search query. Please try again.");
-          return;
         } else {
-          this.setState(() =>{ 
-            return {
-              images: [...this.state.images,  ...response.data.hits],
-              page:  this.state.page + 1,
-              isLoading: false,
-            };
+          alert("Sorry, there are no images matching your search query.");
+          this.setState({
+            isLoading: false,
           })
         }
-    } catch (error) {
-      this.setState({ error });
-      this.setState({ isLoading: false});
-    } 
+    } catch {
+      this.setState({ 
+        error: true,
+        isLoading: false, 
+      }); 
+    }  
+  }
+
+  handleSubmit = query => {
+    if (query !== this.state.query) {
+      this.setState({
+        page: 1,
+        images: [],
+        query: query,
+        isLoading: false,
+      });
+      setTimeout(() => {
+        this.searchImages();
+      }, 500);
+    }
   }
 
   openModal = url => {
@@ -51,15 +65,21 @@ export class App extends Component {
   closeModal = () => {
     this.setState({ modal: false, largeImageURL: "" })
   }
-  handleButtonClick = async event => {
+  handleButtonClick = event => {
     event.preventDefault();
-    this.searchImages(this.state.query);
+    this.setState({
+      page: this.state.page + 1,
+      isLoading: false,
+    });
+    setTimeout(() => {
+      this.searchImages();
+    }, 500);
   }
 
   render() {
     return (
       <div className="App">
-        <Searchbar onSubmit={this.searchImages} />
+        <Searchbar onSubmit={this.handleSubmit} />
         {this.state.error && <p>Something went wrong, please try later.</p>}
         {this.state.isLoading && <Loader />}
         <ImageGallery images={this.state.images} openModal={this.openModal}/> 
