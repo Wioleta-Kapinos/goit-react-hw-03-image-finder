@@ -1,1 +1,1 @@
-# goit-react-hw-0333-image-finder
+https://wioleta-kapinos.github.io/goit-react-hw-03-image-finder/
